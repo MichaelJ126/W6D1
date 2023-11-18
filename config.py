@@ -27,4 +27,6 @@ class Config():
     FLASK_APP = os.environ.get('FLASK_APP') #looking for key of FLASK_APP in our environment vaariable location (.env)
     FLASK_ENV = os.environ.get('FLASK_ENV') 
     FLASK_DEBUG = os.environ.get('FLASK_DEBUG')
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'I wasnt kidding. Please send assistance.'
+
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'Literally whatever you want as long as its a string. Cool Beans'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')

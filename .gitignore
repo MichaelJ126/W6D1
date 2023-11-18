@@ -1,2 +1,4 @@
-rangers_env
+homework_env
 .env
+__pycache__
+.vscode
