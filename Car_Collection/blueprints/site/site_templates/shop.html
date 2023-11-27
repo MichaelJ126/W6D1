@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<div class="container-fluid justify-content-center">
+    <div class="row shop-header p-5">
+        <div class="col-3 ms-5 d-flex flex-column justify-content-center">
+            <h1>Aston Martin Boston</h1>
+            <a href="#" class="btn btn-outline-light mt-3" style="margin-bottom: 70%;">My Collection</a>
+           
+        </div>
+    </div>
+    <!-- <div class="row bg-dark p-3 shop-stats">
+        <div class="col d-flex justify-content-center">Total # of Customers: 0</div>
+        <div class="col d-flex justify-content-center">Total Sales : $0</div>
+        <div class="col d-flex justify-content-center">Total # of Products: 0</div>
+    </div>
+    {% Customize %}
+    <div class="row mt-5 mb-5 justify-content-center">
+        <div class="card d-flex rounded shadow flex-row w-50 p-3" style="height: 350px;">
+            <div class="col d-flex align-items-center" style="max-width:230px;">
+                <img src=" {{ product.image }}" alt="cute plant picture" srcset="" class="img-fluid rounded">
+            </div>
+            <div class="card-body d-flex flex-column justify-content-center p-4">
+                <h5 class="card-title"> {{ product.name }}</h5>
+                <p class="card-text"> {{ product.description }}</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Price: {{ product.price }}</li>
+                    <li class="list-group-item">Quantity: {{ product.quantity }}</li>
+                    {% if product.quantity <= 10 %}
+                        <span class='err-msg btn-danger p-2 opacity-50 rounded'> ALERT: Quantity is Low </span>
+                    {% endif %}
+                </ul>
+                <div class="mt-2">
+                    <a href="#" class="card-link btn btn-warning">Update Product</a>
+                    <a href="#" class="card-link btn btn-danger">Delete Product</a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

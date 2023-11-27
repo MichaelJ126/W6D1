@@ -2,7 +2,7 @@
 
 
 .shop-header {
-    background-image: url("https://image.tmdb.org/t/p/original/6CE4tc3g5al7VInQ2Z3atveEUR5.jpg");
+    background-image: url("https://hips.hearstapps.com/hmg-prod/images/aston-martin-valhalla-101-1626200852.jpg?crop=1.00xw:0.847xh;0,0.153xh&resize=1200:*");
     background-size: cover;
     height: 700px;
     color: white; 
@@ -11,3 +11,16 @@
 .shop-stats {
     color: white; 
 }
+
+h1 {
+    position: absolute;
+    color: white;
+    left: 50%;
+    bottom: 65%;
+    font-size: 80px;
+    transform: translate(-50%, -50%);
+}
+
+/* .img-fluid {
+    margin-right: 30px;
+} */

@@ -1,17 +1,18 @@
-from werkzeug.security import generate_password_hash #generates a unique password hash for extra security 
-from flask_sqlalchemy import SQLAlchemy #this is our ORM (Object Relational Mapper)
-from flask_login import UserMixin, LoginManager #helping us load a user as our current_user 
-from datetime import datetime #put a timestamp on any data we create (Users, Products, etc)
-import uuid #makes a unique id for our data (primary key)
+from werkzeug.security import generate_password_hash 
+from flask_sqlalchemy import SQLAlchemy 
+from flask_login import UserMixin, LoginManager 
+from datetime import datetime 
+import uuid 
+from flask_marshmallow import Marshmallow
+
+from .helpers import get_image
 
 
+db = SQLAlchemy() 
+login_manager = LoginManager() 
+ma = Marshmallow()
 
-#instantiate all our classes
-db = SQLAlchemy() #make database object
-login_manager = LoginManager() #makes login object 
 
-
-#use login_manager object to create a user_loader function
 @login_manager.user_loader
 def load_user(user_id):
     """Given *user_id*, return the associated User object.
@@ -19,21 +20,21 @@ def load_user(user_id):
     :param unicode user_id: user_id (email) user to retrieve
 
     """
-    return User.query.get(user_id) #this is a basic query inside our database to bring back a specific User object
+    return User.query.get(user_id) 
 
-#think of these as admin (keeping track of what products are available to sell)
+
 class User(db.Model, UserMixin): 
-    #CREATE TABLE User, all the columns we create
+    
     user_id = db.Column(db.String, primary_key=True)
     first_name = db.Column(db.String(30))
     last_name = db.Column(db.String(30))
     username = db.Column(db.String(30), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    date_added = db.Column(db.DateTime, default=datetime.utcnow) #this is going to grab a timestamp as soon as a User object is instantiated
+    date_added = db.Column(db.DateTime, default=datetime.utcnow) 
 
 
-    #INSERT INTO User() Values()
+
     def __init__(self, username, email, password, first_name="", last_name=""):
         self.user_id = self.set_id()
         self.first_name = first_name
@@ -44,18 +45,76 @@ class User(db.Model, UserMixin):
 
 
 
-    #methods for editting our attributes 
     def set_id(self):
-        return str(uuid.uuid4()) #all this is doing is creating a unique identification token
+        return str(uuid.uuid4()) 
     
 
     def get_id(self):
-        return str(self.user_id) #UserMixin using this method to grab the user_id on the object logged in
+        return str(self.user_id)
     
     
     def set_password(self, password):
-        return generate_password_hash(password) #hashes the password so it is secure (aka no one can see it)
-    
+        return generate_password_hash(password) 
 
     def __repr__(self):
         return f"<User: {self.username}>"
+    
+
+
+
+class Product(db.Model): 
+    prod_id = db.Column(db.String, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    image = db.Column(db.String)
+    description = db.Column(db.String(200))
+    price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    date_added = db.Column(db.DateTime, default = datetime.utcnow)
+  
+
+    def __init__(self, name, price, quantity, image="", description=""):
+        self.prod_id = self.set_id()
+        self.name = name
+        self.image = self.set_image(image, name)
+        self.description = description
+        self.price = price
+        self.quantity = quantity 
+
+    
+    def set_id(self):
+        return str(uuid.uuid4())
+    
+
+    def set_image(self, image, name): 
+
+        if not image:
+            pass
+            
+
+        return image
+    
+
+    def decrement_quantity(self, quantity):
+
+        self.quantity -= int(quantity)
+        return self.quantity
+    
+    def increment_quantity(self, quantity):
+
+        self.quantity += int(quantity)
+        return self.quantity 
+    
+
+    def __repr__(self):
+        return f"<Product: {self.name}>"
+
+
+class ProductSchema(ma.Schema):
+
+    class Meta:
+        fields = ['prod_id', 'name', 'image', 'description', 'price', 'quantity']
+
+
+
+product_schema = ProductSchema() 
+products_schema = ProductSchema(many=True) 
