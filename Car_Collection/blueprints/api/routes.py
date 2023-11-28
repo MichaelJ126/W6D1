@@ -10,7 +10,7 @@ api = Blueprint('api', __name__, url_prefix='/api')
 @api.route('/token', methods = ['GET', 'POST'])
 def token():
 
-    data = request.json()
+    data = request.json
     if data:
         client_id = data['client_id']
         access_token = create_access_token(identity=client_id) #just needs a unique identifier 

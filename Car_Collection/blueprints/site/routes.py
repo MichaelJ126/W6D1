@@ -4,9 +4,8 @@ from flask import Blueprint, flash, redirect, render_template, request
 
 
 
-from Car_Collection.models import Product, db 
+from Car_Collection.models import Product, db
 from Car_Collection.forms import ProductForm
-
 
 
 
@@ -19,10 +18,10 @@ def shop():
 
     
     allprods = Product.query.all() 
-    allcustomers = Customer.query.all()
-    allorders = OrderedDict.query.all()
+    # allcustomers = Customer.query.all()
+    # allorders = OrderedDict.query.all()
 
-    our_class = "Aston Martin"()
+    our_class = "Aston Martin"
                            
     return render_template('shop.html', shop=allprods, coolmessage = our_class )
 

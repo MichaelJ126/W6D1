@@ -12,12 +12,13 @@
            
         </div>
     </div>
-    <!-- <div class="row bg-dark p-3 shop-stats">
+    <div class="row bg-dark p-3 shop-stats">
         <div class="col d-flex justify-content-center">Total # of Customers: 0</div>
         <div class="col d-flex justify-content-center">Total Sales : $0</div>
         <div class="col d-flex justify-content-center">Total # of Products: 0</div>
     </div>
-    {% Customize %}
+    {{ Customize }}
+    {% for Product in Shop %}
     <div class="row mt-5 mb-5 justify-content-center">
         <div class="card d-flex rounded shadow flex-row w-50 p-3" style="height: 350px;">
             <div class="col d-flex align-items-center" style="max-width:230px;">
@@ -39,7 +40,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     {% endfor %}
 </div>
 
